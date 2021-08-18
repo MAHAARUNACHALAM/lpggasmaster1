@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "86328726257",
+    "project_id": "lpggasmaster1",
+    "storage_bucket": "lpggasmaster1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86328726257:android:7b6b7a9d66e3fc935dcf50",
+        "android_client_info": {
+          "package_name": "com.example.lpggasmaster1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86328726257-aggq7r7ptortpdjsrik5k9l4ao874i5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0rDxrRvhmctsLrwwfI_s_-mujwf-4-YM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86328726257-aggq7r7ptortpdjsrik5k9l4ao874i5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
