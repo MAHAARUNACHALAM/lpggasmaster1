@@ -7,7 +7,7 @@ import 'package:lpggasmaster1/clipper/clipper.dart';
 import 'package:lpggasmaster1/hexColor.dart';
 
 class ViewBill extends StatefulWidget {
-  double? amount;
+  dynamic amount;
 
   ViewBill({Key? key, this.amount}) : super(key: key);
 
@@ -24,7 +24,7 @@ class _ViewBillState extends State<ViewBill> {
 
   // get Amount => Amount;
 
-  double? Amount;
+  dynamic Amount;
   _ViewBillState(this.Amount);
   @override
   Widget build(BuildContext context) {
@@ -142,23 +142,8 @@ class _ViewBillState extends State<ViewBill> {
                 color: Colors.blue[100],
                 borderRadius: BorderRadius.circular(18.0)),
             padding: EdgeInsets.all(15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Text('Apartment Name:'),
-                // Padding(padding: EdgeInsets.all(10)),
-                // Text('Block:'),
-                // Padding(padding: EdgeInsets.all(10)),
-                // Text('Flat No:'),
-                // Padding(padding: EdgeInsets.all(10)),
-                // Text('Consumer No:'),
-                // Padding(padding: EdgeInsets.all(10)),
-                // Text('Date of Reading:'),
-                // Padding(padding: EdgeInsets.all(10)),
-                // Text('Units Consumed:'),
-                // Padding(padding: EdgeInsets.all(10)),
-              ],
+            child: Image(
+              image: AssetImage('assets/images/UPI.jpeg'),
             ),
           ),
           Padding(padding: EdgeInsets.all(10)),
@@ -174,34 +159,34 @@ class _ViewBillState extends State<ViewBill> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: SizedBox(
-                  width: 125,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(b),
-                    ),
-                    child: Text(
-                      'Back',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // builder: (BuildContext context) => Subcription(),
-                          builder: (BuildContext context) => Dashboard(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              // Container(
+              //   child: SizedBox(
+              //     width: 125,
+              //     child: ElevatedButton(
+              //       style: ButtonStyle(
+              //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //           RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(18.0),
+              //           ),
+              //         ),
+              //         backgroundColor: MaterialStateProperty.all<Color>(b),
+              //       ),
+              //       child: Text(
+              //         'Back',
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             // builder: (BuildContext context) => Subcription(),
+              //             builder: (BuildContext context) => Dashboard(),
+              //           ),
+              //         );
+              //       },
+              //     ),
+              //   ),
+              // ),
               Padding(padding: EdgeInsets.all(10)),
               Container(
                 child: SizedBox(
@@ -224,7 +209,7 @@ class _ViewBillState extends State<ViewBill> {
                         context,
                         MaterialPageRoute(
                           // builder: (BuildContext context) => Subcription(),
-                          builder: (BuildContext context) => Dashboard(),
+                          builder: (BuildContext context) => SearchId(),
                         ),
                       );
                     },

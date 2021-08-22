@@ -109,6 +109,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             //         (value) => print("Done: $value"),
             //       );
             // }
+
             Future<String> uploadPic(File _image1) async {
               FirebaseStorage storage = FirebaseStorage.instance;
               String url;

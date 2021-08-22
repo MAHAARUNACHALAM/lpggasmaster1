@@ -100,11 +100,14 @@ class _BillCycleState extends State<BillCycle> {
                 .collection('Bill Cycle');
           });
           addBill();
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (BuildContext context) => ViewBill(amount)),
-          // );
+          // print('amount' + amount.toString());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => ViewBill(
+                      amount: double.parse(widget.amount),
+                    )),
+          );
         },
         child: Text('Generate Bill'));
   }

@@ -16,6 +16,8 @@ class GasBillSystems extends StatefulWidget {
   _GasBillSystemsState createState() => _GasBillSystemsState();
 }
 
+String? PreviousReading;
+
 class _GasBillSystemsState extends State<GasBillSystems> {
   String? Date;
   double? reading;
@@ -90,118 +92,119 @@ class _GasBillSystemsState extends State<GasBillSystems> {
       body: FutureBuilder(
           future: profileData,
           builder: (context, AsyncSnapshot snapshot) {
-            return SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Address:',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            // '',
-                            snapshot.data.docs[0]['Apartment Name'],
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          // TextFormField(),
-                        ],
+            return Wrap(
+              runSpacing: 25,
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Address:',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Consumer No:',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            // '',
-                            snapshot.data.docs[0]['Consumer No '],
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          // TextFormField(),
-                        ],
+                      Padding(padding: EdgeInsets.only(right: 50)),
+                      Expanded(
+                        child: Text(
+                          // '',
+                          snapshot.data.docs[0]['Apartment Name'],
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Date Of Reading:',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            DateFormat("dd-MM-yyyy").format(DateTime.now()),
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          // TextFormField(),
-                        ],
+                      // TextFormField(),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Consumer No:',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
-                    ),
-                    StreamBuilder<DocumentSnapshot>(
-                      stream: data,
-                      builder: (context, AsyncSnapshot snapshot) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    'Starting Reading:',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  Text(
-                                    snapshot.data['Current Reading'],
-                                    // snapshot.data.docs[0]['Apartment Name'],
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  // TextFormField(),
-                                ],
+                      Text(
+                        // '',
+                        snapshot.data.docs[0]['Consumer No '],
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      // TextFormField(),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Date Of Reading:',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      Text(
+                        DateFormat("dd-MM-yyyy").format(DateTime.now()),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      // TextFormField(),
+                    ],
+                  ),
+                ),
+                StreamBuilder<DocumentSnapshot>(
+                  stream: data,
+                  builder: (context, AsyncSnapshot snapshot) {
+                    return (snapshot.hasData)
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Starting Reading:',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    Text(
+                                      snapshot.data['Current Reading'],
+                                      // snapshot.data.docs[0]['Apartment Name'],
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    // TextFormField(),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                // mainAxisAlignment:
-                                // MainAxisAlignment.spaceEvenly,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Ending Reading:',
@@ -224,9 +227,15 @@ class _GasBillSystemsState extends State<GasBillSystems> {
                                       // initialValue: (QRM != null) ? QRM : null,
                                       onFieldSubmitted: (value) {
                                         reading = double.parse(value);
-                                        unitConsumedcalculator(
-                                            snapshot.data['Current Reading']);
-                                        amountCalculator();
+                                        setState(() {
+                                          PreviousReading =
+                                              snapshot.data['Current Reading'];
+                                        });
+                                        // (snapshot.data['Current Reading'].hasdata)
+                                        //     ? unitConsumedcalculator(
+                                        //         snapshot.data['Current Reading'])
+                                        //     : null;
+                                        // amountCalculator();
                                       },
                                     ),
                                   ),
@@ -240,82 +249,97 @@ class _GasBillSystemsState extends State<GasBillSystems> {
                                                     camera: cameras.first),
                                           ),
                                         );
-                                        setState(() {
-                                          Date = DateTime.now().toString();
-                                        });
-                                        amountCalculator();
+                                        // setState(() {
+                                        //   Date = DateTime.now().toString();
+                                        // });
+                                        // amountCalculator();
                                       },
-                                      icon: Icon(Icons.camera_alt))
+                                      icon: Icon(Icons.camera_alt)),
+                                  // IconButton(
+                                  //     onPressed: () {},
+                                  //     icon: Icon(Icons.local_atm_outlined))
                                 ],
                               ),
-                            ),
-                          ],
-                        );
+                            ],
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // UnitConsumed=snapshot.data['Current Reading']-reading,
+                      Text(
+                        'Unit Consumed:',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+
+                      Text(
+                        (UnitConsumed == null) ? '0' : UnitConsumed.toString(),
+                        // snapshot.data.docs[0]['Apartment Name'],
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      // TextFormField(),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Amount:',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+
+                      Text(
+                        (Amount == null) ? '0' : Amount.toString(),
+                        // snapshot.data.docs[0]['Apartment Name'],
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      // TextFormField(),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      child: Text('Calculate Amount'),
+                      onPressed: () {
+                        unitConsumedcalculator(PreviousReading!);
+
+                        amountCalculator();
+                        setState(() {
+                          Date = DateTime.now().toString();
+                        });
                       },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // UnitConsumed=snapshot.data['Current Reading']-reading,
-                          Text(
-                            'Unit Consumed:',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-
-                          Text(
-                            (UnitConsumed == null)
-                                ? '0'
-                                : UnitConsumed.toString(),
-                            // snapshot.data.docs[0]['Apartment Name'],
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          // TextFormField(),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Amount:',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-
-                          Text(
-                            (Amount == null) ? '0' : Amount.toString(),
-                            // snapshot.data.docs[0]['Apartment Name'],
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          // TextFormField(),
-                        ],
-                      ),
                     ),
                     (Amount != null)
                         ? BillCycle(reading!.toString(), Amount!.toString(),
                             Date!, UnitConsumed!.toString())
                         : ElevatedButton(
-                            child: Text('Generate Bill'),
-                            onPressed: null,
-                          ),
+                            child: Text('Generate Bill'), onPressed: null),
                   ],
                 ),
-              ),
+              ],
             );
           }),
     );

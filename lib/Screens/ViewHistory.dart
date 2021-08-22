@@ -161,26 +161,24 @@ class _ViewHistory extends State<ViewHistory> {
                         ),
                       ),
                       Padding(padding: EdgeInsets.all(15)),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(padding: EdgeInsets.only(left: 20)),
-                            Container(
-                              child: Text(
-                                'Address',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(padding: EdgeInsets.only(left: 20)),
+                          Container(
+                            child: Text(
+                              'Address',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
                             ),
-                            Padding(padding: EdgeInsets.only(left: 20)),
-                            Container(
-                                child: Text(
-                                    snapshot.data.docs[0]['Apartment Name']))
-                          ],
-                        ),
+                          ),
+                          Padding(padding: EdgeInsets.only(left: 20)),
+                          Container(
+                              child:
+                                  Text(snapshot.data.docs[0]['Apartment Name']))
+                        ],
                       ),
                       Padding(padding: EdgeInsets.all(40)),
                       Container(
