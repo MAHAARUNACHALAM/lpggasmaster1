@@ -8,6 +8,8 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:lpggasmaster1/DB.dart';
 
+import 'GasBillSystem.dart';
+
 final albumName = 'Media';
 
 // A screen that allows users to take a picture using a given camera.
@@ -114,7 +116,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               FirebaseStorage storage = FirebaseStorage.instance;
               String url;
               Reference ref =
-                  storage.ref().child("image1" + DateTime.now().toString());
+                  storage.ref().child("image1" + Timestamp.now().toString());
               TaskSnapshot uploadTask = await ref.putFile(_image1);
               return await uploadTask.ref.getDownloadURL();
             }
@@ -157,7 +159,21 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Column(
+        children: [
+          Image.file(File(imagePath)),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => GasBillSystems(),
+                  ),
+                );
+              },
+              child: Text('Next'))
+        ],
+      ),
     );
   }
 }

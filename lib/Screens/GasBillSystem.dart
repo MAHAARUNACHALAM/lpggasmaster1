@@ -202,63 +202,69 @@ class _GasBillSystemsState extends State<GasBillSystems> {
                                   ],
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Ending Reading:',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                    width: 150,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      decoration: const InputDecoration(
-                                        // icon: Icon(Icons.person),
-                                        labelText: 'Current Reading',
-                                        labelStyle:
-                                            TextStyle(color: Colors.black),
-                                      ),
-                                      // initialValue: (QRM != null) ? QRM : null,
-                                      onFieldSubmitted: (value) {
-                                        reading = double.parse(value);
-                                        setState(() {
-                                          PreviousReading =
-                                              snapshot.data['Current Reading'];
-                                        });
-                                        // (snapshot.data['Current Reading'].hasdata)
-                                        //     ? unitConsumedcalculator(
-                                        //         snapshot.data['Current Reading'])
-                                        //     : null;
-                                        // amountCalculator();
-                                      },
+                              Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Ending Reading:',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
                                     ),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                TakePictureScreen(
-                                                    camera: cameras.first),
-                                          ),
-                                        );
-                                        // setState(() {
-                                        //   Date = DateTime.now().toString();
-                                        // });
-                                        // amountCalculator();
-                                      },
-                                      icon: Icon(Icons.camera_alt)),
-                                  // IconButton(
-                                  //     onPressed: () {},
-                                  //     icon: Icon(Icons.local_atm_outlined))
-                                ],
+                                    SizedBox(
+                                      height: 30,
+                                      width: 150,
+                                      child: TextFormField(
+                                        keyboardType: TextInputType.number,
+                                        decoration: const InputDecoration(
+                                            // icon: Icon(Icons.person),
+                                            // labelText: 'Current Reading',
+                                            // labelStyle: TextStyle(
+                                            //     color: Colors.black,
+                                            //     fontSize: 25),
+                                            ),
+                                        scrollController: ScrollController(),
+                                        style: TextStyle(fontSize: 20),
+                                        // initialValue: (QRM != null) ? QRM : null,
+                                        onFieldSubmitted: (value) {
+                                          reading = double.parse(value);
+                                          setState(() {
+                                            PreviousReading = snapshot
+                                                .data['Current Reading'];
+                                          });
+                                          // (snapshot.data['Current Reading'].hasdata)
+                                          //     ? unitConsumedcalculator(
+                                          //         snapshot.data['Current Reading'])
+                                          //     : null;
+                                          // amountCalculator();
+                                        },
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  TakePictureScreen(
+                                                      camera: cameras.first),
+                                            ),
+                                          );
+                                          // setState(() {
+                                          //   Date = DateTime.now().toString();
+                                          // });
+                                          // amountCalculator();
+                                        },
+                                        icon: Icon(Icons.camera_alt)),
+                                    // IconButton(
+                                    //     onPressed: () {},
+                                    //     icon: Icon(Icons.local_atm_outlined))
+                                  ],
+                                ),
                               ),
                             ],
                           )
@@ -339,6 +345,13 @@ class _GasBillSystemsState extends State<GasBillSystems> {
                             child: Text('Generate Bill'), onPressed: null),
                   ],
                 ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                      width: 100,
+                      child:
+                          Image(image: AssetImage('assets/images/Atsuya.png'))),
+                )
               ],
             );
           }),
