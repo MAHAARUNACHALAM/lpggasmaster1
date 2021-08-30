@@ -7,10 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:lpggasmaster1/DB.dart';
+import 'package:http/http.dart' as http;
+import 'dart:math';
 
 import 'GasBillSystem.dart';
 
 final albumName = 'Media';
+var ocrResult;
+String a = "";
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random _rnd = Random();
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -116,13 +125,17 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               FirebaseStorage storage = FirebaseStorage.instance;
               String url;
               Reference ref =
-                  storage.ref().child("image1" + Timestamp.now().toString());
+                  storage.ref().child("image1" + getRandomString(15));
               TaskSnapshot uploadTask = await ref.putFile(_image1);
               return await uploadTask.ref.getDownloadURL();
             }
 
-            String a = await uploadPic(_imageFile);
+            a = await uploadPic(_imageFile);
             print(a);
+            ocrResult = (await http.get(
+                Uri.parse("https://ocr-appmeter.herokuapp.com/?ima=" + a)));
+            // ocrResult = (await http
+            //     .get(Uri.parse("http://192.168.1.9:5000/?ima=" + a)));
 
             // If the picture was taken, display it on a new screen.
             await Navigator.of(context).push(
@@ -162,6 +175,9 @@ class DisplayPictureScreen extends StatelessWidget {
       body: Column(
         children: [
           Image.file(File(imagePath)),
+          (ocrResult.body == null)
+              ? CircularProgressIndicator()
+              : Text(ocrResult.body),
           ElevatedButton(
               onPressed: () {
                 Navigator.push(
