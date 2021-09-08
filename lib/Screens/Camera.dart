@@ -15,6 +15,7 @@ import 'GasBillSystem.dart';
 final albumName = 'Media';
 var ocrResult;
 String a = "";
+String? OcrResult1;
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 Random _rnd = Random();
 
@@ -108,42 +109,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             GallerySaver.saveImage(image.path, albumName: albumName);
             File? _imageFile;
             _imageFile = File(image.path);
-
-            // Future uploadImageToFirebase(BuildContext context) async {
-            //   String fileName = basename(_imageFile!.path);
-            //   StorageReference firebaseStorageRef =
-            //       FirebaseStorage.instance.ref().child('uploads/$fileName');
-            //   StorageUploadTask uploadTask =
-            //       firebaseStorageRef.putFile(_imageFile);
-            //   StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-            //   taskSnapshot.ref.getDownloadURL().then(
-            //         (value) => print("Done: $value"),
-            //       );
-            // }
-
-            Future<String> uploadPic(File _image1) async {
-              FirebaseStorage storage = FirebaseStorage.instance;
-              String url;
-              Reference ref =
-                  storage.ref().child("image1" + getRandomString(15));
-              TaskSnapshot uploadTask = await ref.putFile(_image1);
-              return await uploadTask.ref.getDownloadURL();
-            }
-
-            a = await uploadPic(_imageFile);
-            print(a);
-            ocrResult = (await http.get(
-                Uri.parse("https://ocr-appmeter.herokuapp.com/?ima=" + a)));
-            // ocrResult = (await http
-            //     .get(Uri.parse("http://192.168.1.9:5000/?ima=" + a)));
+            print("ImagePath:" + image.path);
 
             // If the picture was taken, display it on a new screen.
-            await Navigator.of(context).push(
+            Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => DisplayPictureScreen(
-                  // GallerySaver.saveImage(image!.path, albumName: albumName);
-                  // Pass the automatically generated path to
-                  // the DisplayPictureScreen widget.
                   imagePath: image.path,
                 ),
               ),
@@ -173,11 +144,45 @@ class DisplayPictureScreen extends StatelessWidget {
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.file(File(imagePath)),
-          (ocrResult.body == null)
-              ? CircularProgressIndicator()
-              : Text(ocrResult.body),
+          ElevatedButton(
+              child: Text("Get OcrResult"),
+              onPressed: () async {
+                Future<String> uploadPic(File _image1) async {
+                  FirebaseStorage storage = FirebaseStorage.instance;
+                  // String url;
+                  Reference ref =
+                      storage.ref().child("image1" + getRandomString(15));
+                  TaskSnapshot uploadTask = await ref.putFile(
+                    _image1,
+                  );
+                  return await uploadTask.ref.getDownloadURL();
+                }
+
+                a = await uploadPic(File(imagePath));
+                print(a);
+                ocrResult = (await http.get(
+                    Uri.parse("https://ocr-appmeter.herokuapp.com/?ima=" + a)));
+                OcrResult1 = ocrResult.body;
+              }),
+          // (ocrResult.body == null)
+          //     ? CircularProgressIndicator()
+          FutureBuilder(
+              initialData: OcrResult1,
+              builder: (context, snapshot) {
+                return Text(
+                  (OcrResult1 == null)
+                      ? "Your Result will be Displayed Here Once You click Get OcrResult"
+                      : ocrResult.body,
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                );
+              }),
+
           ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -194,6 +199,26 @@ class DisplayPictureScreen extends StatelessWidget {
   }
 }
 
+// class OutlinePainter extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     // Define a paint object
+
+//     final paint = Paint()
+//       ..style = PaintingStyle.stroke
+//       ..strokeWidth = 4.0
+//       ..color = Colors.orange;
+
+//     canvas.drawRRect(
+//       RRect.fromRectAndRadius(
+//           Rect.fromLTWH(10, 20, 325, 50), Radius.circular(0)),
+//       paint,
+//     );
+//   }
+
+//   @override
+//   bool shouldRepaint(OutlinePainter oldDelegate) => false;
+// }
 class OutlinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
