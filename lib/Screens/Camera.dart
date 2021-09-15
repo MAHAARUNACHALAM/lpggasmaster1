@@ -163,8 +163,11 @@ class DisplayPictureScreen extends StatelessWidget {
 
                 a = await uploadPic(File(imagePath));
                 print(a);
-                ocrResult = (await http.get(
-                    Uri.parse("https://ocr-appmeter.herokuapp.com/?ima=" + a)));
+                ocrResult = (await http.get(Uri.parse(
+                    "http://ec2-13-233-249-48.ap-south-1.compute.amazonaws.com:5000/?ima=" +
+                        a)));
+                // ocrResult = (await http.get(
+                //     Uri.parse("https://ocr-appmeter.herokuapp.com/?ima=" + a)));
                 OcrResult1 = ocrResult.body;
               }),
           // (ocrResult.body == null)
@@ -188,7 +191,9 @@ class DisplayPictureScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => GasBillSystems(),
+                    builder: (BuildContext context) => GasBillSystems(
+                      ocrReading: "",
+                    ),
                   ),
                 );
               },

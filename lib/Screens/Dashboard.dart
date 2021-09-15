@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +11,7 @@ import 'package:lpggasmaster1/Screens/MeterScanner.dart';
 import 'package:lpggasmaster1/Screens/QrScan.dart';
 import 'package:lpggasmaster1/Screens/ViewBill.dart';
 import 'package:lpggasmaster1/Screens/ViewHistory.dart';
+import 'package:lpggasmaster1/Screens/imageCropper.dart';
 import 'package:lpggasmaster1/hexColor.dart';
 import 'package:lpggasmaster1/main.dart';
 
@@ -211,7 +212,10 @@ class _DashboardState extends State<Dashboard> {
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  GasBillSystems(),
+                                  // cropper(camera: cameras.first),
+                                  GasBillSystems(
+                                ocrReading: " ",
+                              ),
                             ),
                           );
                         },
@@ -228,7 +232,7 @@ class _DashboardState extends State<Dashboard> {
                                 height: 128,
                               ),
                               Text(
-                                'Scan QR',
+                                'Generate Bill',
                                 style: cardTextStyle,
                               )
                             ],

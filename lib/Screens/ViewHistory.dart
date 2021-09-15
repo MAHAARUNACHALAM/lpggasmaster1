@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lpggasmaster1/DB.dart';
@@ -141,24 +142,46 @@ class _ViewHistory extends State<ViewHistory> {
                         ),
                       ),
                       Padding(padding: EdgeInsets.all(15)),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(padding: EdgeInsets.only(left: 20)),
-                            Container(
-                              child: Text(
-                                'Mobile No:',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                            ),
-                            Padding(padding: EdgeInsets.only(left: 20)),
-                            Container(child: Text('100'))
-                          ],
-                        ),
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('CUSTOMER DATA')
+                            .doc(customerId)
+                            .collection('Bill Cycle')
+                            .doc(bill)
+                            .snapshots(),
+                        builder: (context, AsyncSnapshot snapshot) {
+                          return (snapshot.hasData)
+                              ? Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.only(left: 20)),
+                                      Container(
+                                        child: Text(
+                                          'Bill Amount:',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.only(left: 20)),
+                                      Text(
+                                        snapshot.data['Amount'],
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                        },
                       ),
                       Padding(padding: EdgeInsets.all(15)),
                       Row(
@@ -196,7 +219,7 @@ class _ViewHistory extends State<ViewHistory> {
                               ),
                             ),
                             Padding(padding: EdgeInsets.only(left: 20)),
-                            Container(child: Text('100'))
+                            Container(child: Text('Not Paid'))
                           ],
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lpggasmaster1/DB.dart';
+import 'package:lpggasmaster1/Screens/AddUserScreen.dart';
 import 'package:lpggasmaster1/Screens/Dashboard.dart';
 import 'package:lpggasmaster1/Screens/QrScan.dart';
 import 'package:lpggasmaster1/Screens/login.dart';
@@ -118,6 +119,18 @@ class _SearchIdState extends State<SearchId> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ElevatedButton(
+                    child: Text('AddUser'),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => AddUserScreen(),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
             // Container(),
