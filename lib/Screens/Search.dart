@@ -8,7 +8,8 @@ import 'package:lpggasmaster1/Screens/login.dart';
 import 'package:lpggasmaster1/hexColor.dart';
 
 class SearchId extends StatefulWidget {
-  SearchId({Key? key}) : super(key: key);
+  String? Qr;
+  SearchId({Key? key, this.Qr}) : super(key: key);
 
   @override
   _SearchIdState createState() => _SearchIdState();
@@ -48,7 +49,7 @@ class _SearchIdState extends State<SearchId> {
                       icon: Icon(Icons.person),
                       labelText: 'Consumer No',
                     ),
-                    initialValue: (QRM != null) ? QRM : null,
+                    initialValue: (widget.Qr != null) ? widget.Qr : null,
                     onFieldSubmitted: (String value) {
                       QRM = value;
                     },
@@ -134,15 +135,14 @@ class _SearchIdState extends State<SearchId> {
               ],
             ),
             // Container(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Image.asset(
-                'assets/images/Atsuya.png',
-                // height: 20,
-                width: 100,
-              ),
-            ),
+            
           ]),
+          bottomNavigationBar: BottomAppBar(
+            elevation: 0,
+            color: Colors.white,
+            child: Container(
+                height: 50,
+                child: Image(image: AssetImage('assets/images/Atsuya.png'),),),),
     );
   }
 }

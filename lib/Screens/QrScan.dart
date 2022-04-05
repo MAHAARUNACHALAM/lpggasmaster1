@@ -40,7 +40,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                 borderWidth: 10,
                 cutOutSize: scanArea),
           ))
-        : SearchId());
+        : SearchId(
+            Qr: Qrresult,
+          ));
   }
 
   void _onQRViewCreated(QRViewController controller) {
